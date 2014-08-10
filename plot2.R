@@ -4,6 +4,8 @@ data.1<-data[grep("2007-02-01",data[,1]),]
 data.2<-data[grep("2007-02-02",data[,1]),]
 data.t<-rbind(data.1,data.2)
 data.t[,3]<-as.numeric(as.character(data.t[,3]))
-pgn("plot1.pgn")
-hist(data.t[,3], col="RED", xlab="Global Active Power (kilowatts)", main="Global Active Power")
+dates<-format(as.POSIXct(paste(data.t[,1], data.t[,2])), "%d/%m/%Y %H:%M:%S")
+dates<-strptime(dates, "%d/%m/%Y %H:%M:%S")
+png("plot2.png")
+plot(dates, data.t[,3],type="l")
 dev.off()
