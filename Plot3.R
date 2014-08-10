@@ -1,0 +1,17 @@
+data<-read.table("household_power_consumption.txt", header=TRUE, sep=";")
+data[,1]<-as.Date(data[,1], "%d/%m/%Y")
+data.1<-data[grep("2007-02-01",data[,1]),]
+data.2<-data[grep("2007-02-02",data[,1]),]
+data.t<-rbind(data.1,data.2)
+data.t[,7]<-as.numeric(as.character(data.t[,7]))
+data.t[,8]<-as.numeric(as.character(data.t[,8]))
+data.t[,9]<-as.numeric(as.character(data.t[,9]))
+dates<-format(as.POSIXct(paste(data.t[,1], data.t[,2])), "%d/%m/%Y %H:%M:%S")
+dates<-strptime(dates, "%d/%m/%Y %H:%M:%S")
+png("plot3.png")
+plot(dates, data.t[,7],type="n",xlab="",ylab="Energy Sub Metering")
+lines(dates,data.t[,7])
+lines(dates,data.t[,8],col="Red")
+lines(dates,data.t[,9],col="Blue")
+legend('topright', names(data.t)[c(7,8,9)] , lty=1, col=c('black','red', 'blue'), cex=.75)
+dev.off()

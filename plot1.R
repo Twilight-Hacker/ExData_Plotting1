@@ -6,4 +6,4 @@ data.t<-rbind(data.1,data.2)
 data.t[,3]<-as.numeric(as.character(data.t[,3]))
 pgn("plot1.pgn")
 hist(data.t[,3], col="RED", xlab="Global Active Power (kilowatts)", main="Global Active Power")
-dev.off()
+dev.off
